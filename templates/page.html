@@ -1,0 +1,25 @@
+<html>
+<head>
+  <link rel="stylesheet" href='/static/style.css' />
+  </head>
+<body>
+<b>{{track}}</b>
+<b>lullablock</b>
+<div class="volume"><a href="/volume/down">-</a></div>
+<div class="volume"><a href="/volume/up" class="volume-up">+</a></div>
+
+<h1>Volume: {{volume}}</h1>
+<h1>{{timer_in_minutes}} minutes, unless you <a href="/timer/bop">Bop it</a></h1>
+<small><a href="/start">😴</a></small>
+<small><a href="/stop">🙉</a></small>
+
+<ul>
+{% for track in tracks %}
+<li><a href="/tracks/play/{{track.filename}}">{{track.display_name}}</a></li>
+{% endfor %}
+</ul>
+</body>
+</html>
+
+
+<h1>{{time}}</h1>

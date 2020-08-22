@@ -1,0 +1,23 @@
+body {
+  font-family: helvetica;
+  font-size: 2em;
+  background: linear-gradient(167.96deg, #FF3D00 0%, #DD4848 100%);
+  color: white;
+}
+
+small {
+  font-size: 1em;
+}
+
+.volume {
+  display: block;
+  text-align: center;
+  height: 2em;
+  width: 2em;
+  background-color: red;
+  border: 1px solid red;
+}
+
+.volume a {
+  text-decoration: none;
+}

@@ -1,0 +1,20 @@
+{
+  "tracks": [
+    {
+        "filename": "pianoloop.mp3",
+        "display_name": "Piano Spook Loop"
+    },
+    {
+        "filename": "Pink_Noise.mp3",
+        "display_name": "Pink Noize"
+    },
+    {
+        "filename": "POLYPUNK002.mp3",
+        "display_name": "PPunk!"
+    },
+    {
+        "filename": "audiocheck.net_pinknoise.wav",
+        "display_name": "Pink Noize WAV"
+    }
+  ]
+}
