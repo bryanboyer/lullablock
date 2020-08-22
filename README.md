@@ -26,7 +26,8 @@ GPIO connections made via the prototyping area on the Speaker Bonnet:
 - [Pygame](https://www.pygame.org/) provides audio control
 - [Flask](https://flask.palletsprojects.com/) provides the webserver
 
-Edit `/etc/rc.local`, which will run on boot to include:
+Edit `/etc/rc.local`, which will run on boot, to include:
 ```
-python3.7 /home/pi/lullablock/server.py &
+sudo -i -u pi python3.7 /home/pi/lullablock/server.py &
 ```
+This runs the server as user `pi` so that the dependencies are ok. There's probably a better way to install Python modules so that this is not a problem but ugh.
