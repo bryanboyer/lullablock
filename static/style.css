@@ -1,23 +1,198 @@
+html {
+  overflow: hidden;
+}
+
+.monday {
+    background: #5E44FF;
+}
+.tuesday {
+    background: linear-gradient(180deg, #FF3D00 0%, #FF6438 100%);
+}
+.wednesday {
+    background: linear-gradient(180deg, #FF3D00 0%, #FF6438 100%);
+}
+.thursday {
+    background: linear-gradient(180deg, #FF3D00 0%, #FF6438 100%);
+}
+.friday {
+  background: linear-gradient(180deg, #FF3D00 0%, #FF6438 100%);
+
+}
+.saturday {
+  background: linear-gradient(180deg, #FF3D00 0%, #FF6438 100%);
+}
+.sunday {
+    background: linear-gradient(180deg, #FF3D00 0%, #FF6438 100%);
+}
+
+
 body {
-  font-family: helvetica;
-  font-size: 2em;
-  background: linear-gradient(167.96deg, #FF3D00 0%, #DD4848 100%);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  font-size: 10px;
+  color: white;
+  overscroll-behavior-y: none;
+  overflow: hidden;
+}
+
+#volumebuttons {
+  display: block;
+  position: relative;
+  top: 15vh;
+  width: 40vh;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+#volumebuttons #up {
+  position: relative;
+  float: right;
+  left: 1vh;
+  height: 20vh;
+  width: 20vh;
+}
+
+#volumebuttons #down {
+  position: relative;
+  left: -1vh;
+  height: 20vh;
+  width: 20vh;
+}
+
+#volumebutton svg circle {
+  -webkit-tap-highlight-color: blue;
+}
+#volumebuttons svg:hover circle {
+  opacity: 0.7;
+}
+
+#track {
+  position: absolute;
+  text-align: left;
+  top: 1em;
+  left: 1em;
+}
+
+#track a{
+  text-decoration: none;
   color: white;
 }
 
-small {
-  font-size: 1em;
+#branding {
+  position: absolute;
+  text-align: right;
+  top: 1em;
+  right: 1em;
 }
 
-.volume {
-  display: block;
+#bottom {
+  position: absolute;
+  bottom: 0em;
+}
+
+#durationMarkers {
+  width: 100vw;
+  position: relative;
+  bottom: 2em;
   text-align: center;
-  height: 2em;
-  width: 2em;
-  background-color: red;
-  border: 1px solid red;
+
 }
 
-.volume a {
+#durationMarkers div {
+  position: absolute;
+  display: block;
+  top: 0.5em;
+  left: 0px;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+}
+
+#durationSnake {
+  position: relative;
+  display: block;
+  bottom: 2em;
+  cursor: pointer;
+  stroke-linecap: square;
+  stroke-linejoin: round;
+}
+
+#timer {
+  position: relative;
+  display: block;
+  left: 0em;
+  bottom: 2em;
+  cursor: pointer;
+}
+
+#tracks {
+  position: absolute;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #FF3D00;
+  text-align:center;
+  border-bottom: 10px solid rgba(0,0,0,.2);
+}
+
+#tracks p {
+  margin-top: 2em;
+}
+
+#tracks p a {
+  color: white;
   text-decoration: none;
+}
+
+#tracks .closer{
+  margin-top: 2em;
+}
+
+#tracks .closer a {
+  /* text-decoration: none; */
+  font-size: 3em;
+}
+
+#tracks svg{
+  position: relative;
+  transform: rotate(45deg) scale(0.5);
+  margin-top: 1em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.largetext {
+  font-size: 2.0em;
+  font-family: "helvetica neue";
+  font-weight: bold;
+}
+
+.smalltext {
+  font-size: 1.25em;
+  font-family: "helvetica neue";
+  font-weight: bold;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* Portrait */
+@media only screen
+  and (min-device-width: 320px)
+  and (max-device-width: 480px)
+  and (-webkit-min-device-pixel-ratio: 2)
+  and (orientation: portrait) {
+
+  .largetext {
+    font-size: 3.5em;
+  }
+
+  .smalltext {
+    font-size: 2.5em;
+  }
 }

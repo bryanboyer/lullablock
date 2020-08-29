@@ -26,7 +26,7 @@ class FancyTimer(Timer):
     def elapsed(self):
         return time.time() - self.started_at
     def remaining(self):
-        return self.interval - self.elapsed()
+        return max(self.interval - self.elapsed(),0)
 
 class SoundControl:
     def getVolume(self):
@@ -157,6 +157,12 @@ class SoundControl:
                     json.dump({"duration":0},f)
             except:
                 print("Could not write the Timer to disk.")
+
+    def timerRemaining(self):
+        if self.countdown is False:
+            return 0
+        else:
+            return self.countdown.remaining()
 
     def blip(self):
         self.audioFeedback(blipFile)

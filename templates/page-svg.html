@@ -2,7 +2,6 @@
 <head>
   <link rel="stylesheet" href='/static/style.css' />
   <script type="text/javascript">
-
   // a bunch of stuff defined by the server
   var timerPercentageOnLoad = 0
   var timerRemaining={{remaining}};
@@ -11,15 +10,33 @@
   timerPercentageOnLoad = (timerDurations[0] - timerRemaining) / timerDurations[0];
   var timerPercentage = timerPercentageOnLoad;
 
+  // set up a bunch of variables we will re-use
+  var divisions, margin, reps, w, h, vert_units_per_leg, vert_units_total, horz_units_per_leg, horz_units_total, total_units, line_thickness, v_scale_factor;
+
+  // set these to define the UI
+  divisions = 90;
+  line_thickness = 5;
+
   // set up the basic functionality
   window.addEventListener("load", resizeCanvas);
   window.addEventListener("resize", resizeCanvas);
+  window.addEventListener("load", setBackground);
+
+  function setBackground(){
+    var d = new Date();
+    var n = d.getDay();
+    var days = ["monday","tuesday","wedneaday","thursday","friday","saturday","sunday"];
+    document.querySelector("html").classList.add(days[n]);
+    window.scrollTo(0,1)
+  }
+
   timer = setTimeout(redrawTimer,500);
+  timerRemaining -= 0.5;
 
   function redrawTimer() {
     // redraw
     timerRemaining -= 0.5;
-    timerPercentage = (timerDurations[0] - timerRemaining) / timerDurations[0];
+    timerPercentage = Math.min(1,(timerDurations[0] - timerRemaining) / timerDurations[0]);
 
     // update the text
     document.querySelector("#timerRemaining").innerHTML = "Remaining: " + fancyTimeFormat(timerRemaining);
@@ -37,24 +54,17 @@
     }
   }
 
-  // set up a bunch of variables we will re-use
-  var divisions, margin, reps, w, h, vert_units_per_leg, vert_units_total, horz_units_per_leg, horz_units_total, total_units, line_thickness;
-
-  // set these to define the UI
-  divisions = 30;
-  var v_scale_factor = 12;
-
   function resizeCanvas() {
-    var canvas = document.getElementById("durationSnake");
-    var c = canvas.getContext("2d");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight/2;
+    // clear the SVG because we're on a new loop - who dis?
+    document.querySelector('#durationSnake').innerHTML = "";
+    var canvasWidth = window.innerWidth;
+    var canvasHeight = window.innerHeight/2;
+    v_scale_factor = Math.floor(canvasHeight / divisions);
+    document.querySelector('#durationSnake').style.width = canvasWidth + "px";
+    document.querySelector('#durationSnake').style.height = canvasHeight + "px";
 
-    c.clearRect(0, 0, canvas.width, canvas.height);
-
-    margin = canvas.width/divisions;
+    margin = canvasWidth/divisions;
     v_scale_factor = Math.floor(window.innerHeight/2/margin)-2;
-    line_thickness = 14;
     w = margin;
     h = margin * v_scale_factor;
     reps = divisions-2;
@@ -66,81 +76,91 @@
     total_units = vert_units_total + horz_units_total;
 
     // draw the snake curve
-    c.beginPath();
-    c.moveTo(margin*(divisions-1), margin);
+    var svgPath = [`M ${margin*(divisions-1)}, ${margin}`]
+
     for (i=1; i<reps; i+=2){
-      c.lineTo(margin*(divisions-i), margin+h);
-      c.lineTo(margin*(divisions-i-1), margin+h);
-      c.lineTo(margin*(divisions-i-1), margin);
-      c.lineTo(margin*(divisions-i-2), margin);
+      svgPath.push(`L ${margin*(divisions-i)}, ${margin+h}`)
+      svgPath.push(`L ${margin*(divisions-i-1)}, ${margin+h}`)
+      svgPath.push(`L ${margin*(divisions-i-1)}, ${margin}`)
+      svgPath.push(`L ${margin*(divisions-i-2)}, ${margin}`)
     }
-    c.lineTo(margin, margin+h);
-    c.lineCap = "round";
-    c.lineJoin = "round";
-    c.strokeStyle = "rgba(0,0,0,.1)";//"#FFF8D5";
-    c.lineWidth = line_thickness;
-    c.stroke();
+    // the thickness is added here because we don't know how to setTimer
+    // the stroke-lineCap = square using javascript >:(
+    svgPath.push(`L ${margin}, ${margin+h}`)
+
+    var pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathEl.setAttribute('d',svgPath.join(" "));
+    pathEl.style.stroke = "rgba(0,0,0,.1)"
+    pathEl.style.strokeWidth = line_thickness;
+    pathEl.style.fill = "none";
+    document.querySelector('#durationSnake').appendChild(pathEl);
+
 
     // draw the snake curve bright!
-    c.beginPath();
-    c.moveTo(margin*(divisions-1), margin);
+    svgPath = [`M ${margin*(divisions-1)}, ${margin}`]
     unitsDrawn = 0
     snake = snakeCurve(timerPercentage);
     for (i=1; i<reps; i+=2){
         if (unitsDrawn < snake.units-v_scale_factor) {
-          c.lineTo(margin*(divisions-i), margin+h);   // down
+          svgPath.push(`L ${margin*(divisions-i)}, ${margin+h}`)
           unitsDrawn += v_scale_factor;
         } else { break; }
         if (unitsDrawn < snake.units-1) {
-          c.lineTo(margin*(divisions-i-1), margin+h); // over (low)
+          svgPath.push(`L ${margin*(divisions-i-1)}, ${margin+h}`)
           unitsDrawn += 1;
         } else { break; }
         if (unitsDrawn < snake.units-v_scale_factor) {
-          c.lineTo(margin*(divisions-i-1), margin);   // up
+          svgPath.push(`L ${margin*(divisions-i-1)}, ${margin}`)
           unitsDrawn += v_scale_factor;
         } else { break; }
         if (unitsDrawn < snake.units-1) {
-          c.lineTo(margin*(divisions-i-2), margin);   // over (high)
+          svgPath.push(`L ${margin*(divisions-i-2)}, ${margin}`)
           unitsDrawn += 1;
         } else { break; }
     }
-    c.lineTo(snake.x, snake.y);
-    c.lineCap = "round";
-    c.lineJoin = "round";
-    c.strokeStyle = "#FFF8D5";
-    c.lineWidth = line_thickness;
-    c.stroke();
+    svgPath.push(`L ${snake.x}, ${snake.y}`)
 
+    pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
+    pathEl.setAttribute('d',svgPath.join(" "));
+    pathEl.style.stroke = "#FFF8D5"
+    pathEl.style.strokeWidth = line_thickness;
+    pathEl.style.fill = "none";
+    document.querySelector('#durationSnake').appendChild(pathEl);
 
     // place the text markers
     var markers = [...document.querySelectorAll('#durationMarkers div')].map(function(e) {
       var coords = snakeCurve((timerDurations[0] - (parseInt(e.innerHTML)*60)) / timerDurations[0]);
-      e.style.left = coords.x - e.offsetWidth/2 + "px";
+      e.innerHTML = parseInt(e.innerHTML)
+      e.style.left = coords.x - e.offsetWidth/2  + "px";
     });
-    document.querySelector('#timer').style.left = margin + "px";
-    document.querySelector('#track').style.left = margin + "px";
-    document.querySelector('#branding').style.right = margin + "px";
+    document.querySelector('#timer').style.left = margin-line_thickness/2 + "px";
+    document.querySelector('#track').style.left = margin-line_thickness/2 + "px";
+    document.querySelector('#branding').style.right = margin-line_thickness/2 + "px";
 
     // draw the dot!
-    drawDot(snakeCurve(timerPercentage),c);
+    pathEl = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+    pathEl.setAttribute('cx',snake.x);
+    pathEl.setAttribute('cy',snake.y);
+    pathEl.setAttribute('r',line_thickness * 1.1);
+    pathEl.style.stroke = "none"
+    pathEl.style.fill = "#FFF8D5";
+    document.querySelector('#durationSnake').appendChild(pathEl);
   }
 
   function snakeCurve(percentage){
-    var canvas = document.getElementById("durationSnake");
-    var c = canvas.getContext("2d");
-
-    l_units = 1 + v_scale_factor;
-    l_increments = Math.floor((percentage * total_units) / l_units);
+    var canvasWidth = window.innerWidth;
+    var l_units = 1 + v_scale_factor;
+    var l_increments = Math.floor((percentage * total_units) / l_units);
     // set coords based on what we know
-    x = l_increments * margin;
-    y = margin;
+    var x = l_increments * margin;
+    var y = margin;
 
     var even = (l_increments % 2 == 0) ? true : false;
     var remaining_units = (percentage * total_units) - (l_increments * l_units)
 
     if (remaining_units >= v_scale_factor) {
       // we're on horz
-      remaining_units_fine = remaining_units - v_scale_factor
+      var remaining_units_fine = remaining_units - v_scale_factor
       x += remaining_units_fine * margin
       if (even) {
         y += margin * v_scale_factor
@@ -151,31 +171,19 @@
       // we're on vert
       if (even) {
         // console.log("going down from top")
-        remaining_units_fine = remaining_units / v_scale_factor;
+        var remaining_units_fine = remaining_units / v_scale_factor;
         y += remaining_units_fine * margin * v_scale_factor;
       } else {
         // console.log("going up from bottom")
-        remaining_units_fine = remaining_units / v_scale_factor;
+        var remaining_units_fine = remaining_units / v_scale_factor;
         y += h - (remaining_units_fine * margin * v_scale_factor);
       }
     }
 
-    // this is lazy, oops! maybe we dont need anymore!
-    // if (percentage == 1) y = margin + h;
-    x = canvas.width - margin - x;
-    units = (percentage * total_units)
-    // console.log(units)
-
+    x = canvasWidth - margin - x;
+    var units = (Math.min(1,percentage) * total_units)
     return {x: x, y: y, units: units}
   }
-
-function drawDot(coords,c) {
-  c.beginPath();
-  c.arc(coords.x, coords.y, line_thickness*1.25, 0, 2 * Math.PI);
-  c.fillStyle = "#FFF8D5";
-  c.fill();
-  return true
-}
 
   function fancyTimeFormat(duration) {
     // Hours, minutes and seconds
@@ -281,31 +289,31 @@ function drawDot(coords,c) {
 <div id="volumebuttons" class="smalltext">
 <a href="/volume/down" onclick="return volume('down')">
   <svg width="152" height="152" viewBox="0 0 152 152" id="down">
-    <circle cx="76" cy="76" r="76" fill="#E63E1A"/>
+    <circle cx="76" cy="76" r="76" fill="rgba(0,0,0,0.1)"/>
     <path d="M53.701 88.05V66.45H98.251V88.05H53.701Z" fill="white"/>
   </svg>
 </a>
 <a href="/volume/up" onclick="return volume('up')">
   <svg width="152" height="152" viewBox="0 0 152 152" id="up">
-    <circle cx="76" cy="76" r="76" fill="#E63E1A"/>
+    <circle cx="76" cy="76" r="76" fill="rgba(0,0,0,0.1)"/>
     <path d="M66.4293 114.55V86.95H41.0793V69.25H66.4293V41.65H85.6293V69.25H110.979V86.95H85.6293V114.55H66.4293Z" fill="white"/>
   </svg>
 </a>
 <div id="level">{{volume}}</div>
 </div>
 
-<div id="timer" onClick="switchTimerText()">
-  <div id="timerEnding" class="largetext">Ending</div>
-  <div id="timerRemaining" class="largetext hidden">Remaining</div>
-</div>
-<canvas id="durationSnake" onclick="return timerBop()">
-</canvas>
-
-
-<div id="durationMarkers" class="smalltext">
-{% for d in timerDurations %}
-<div>{{d/60}}</div>
-{% endfor %}
+<div id="bottom">
+  <div id="timer" onClick="switchTimerText()">
+    <div id="timerEnding" class="largetext">Ending</div>
+    <div id="timerRemaining" class="largetext hidden">Remaining</div>
+  </div>
+  <svg id="durationSnake" onclick="return timerBop()">
+  </svg>
+  <div id="durationMarkers" class="smalltext">
+  {% for d in timerDurations %}
+  <div>{{d/60}}</div>
+  {% endfor %}
+  </div>
 </div>
 
 <div id="tracks" class="hidden">
@@ -315,7 +323,7 @@ function drawDot(coords,c) {
   <!--<p class="largetext closer"><a href="#" onclick="toggleTrackList()">👋</a></p>-->
   <a href="/volume/down" onclick="return toggleTrackList()">
     <svg width="152" height="152" viewBox="0 0 152 152" id="up">
-      <circle cx="76" cy="76" r="76" fill="#E63E1A"/>
+      <circle cx="76" cy="76" r="76" fill="rgba(0,0,0,0.2)"/>
       <path d="M66.4293 114.55V86.95H41.0793V69.25H66.4293V41.65H85.6293V69.25H110.979V86.95H85.6293V114.55H66.4293Z" fill="white"/>
     </svg>
   </a>

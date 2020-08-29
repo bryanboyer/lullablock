@@ -4,7 +4,7 @@ import json
 import threading
 from subprocess import call
 from SoundControl import SoundControl
-from settings import volumeIncrement
+from settings import volumeIncrement, apiEndpoint, apiEndpointForWeb
 
 app = Flask(__name__)
 
@@ -23,10 +23,14 @@ def index():
         'timer_in_minutes' : timerInMinutes(),
         'time': timeString,
         'tracks': lullablock.getTracks(),
-        'track': lullablock.getTrack()
+        'track': lullablock.getTrack(),
+        'remaining': lullablock.timerRemaining(),
+        'timerDurations': lullablock.timerDurations,
+        'timerLength': lullablock.getTimer(),
+        'apiEndpoint': apiEndpointForWeb
     }
 
-    return render_template('page.html', **templateData)
+    return render_template('page-svg.html', **templateData)
 
 
 @app.route('/timer/bop')
@@ -74,7 +78,9 @@ def api_volume(direction):
         v = lullablock.setVolume(int(direction))
         msg = True
 
-    return f"{msg}"
+    v = lullablock.getVolume()
+
+    return f"{v}"
 
 @app.route('/tracks')
 def tracks():
@@ -94,7 +100,7 @@ def api_ready():
 
 def initListener():
     print("Starting up the device listener.")
-    call(["python3.7", "./rotaryEncoderListener.py"])
+    call(["python3.7", "/home/pi/lullablock/rotaryEncoderListener.py"])
 
 if __name__ == '__main__':
     debugMode = True
