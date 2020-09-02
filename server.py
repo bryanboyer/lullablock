@@ -1,3 +1,5 @@
+#!/usr/bin/env python3.7
+
 from flask import Flask, render_template, redirect, url_for
 import datetime
 import json
@@ -9,6 +11,7 @@ from settings import volumeIncrement, apiEndpoint, apiEndpointForWeb
 app = Flask(__name__)
 
 lullablock = SoundControl()
+print ("lullablock status: ", lullablock)
 
 def timerInMinutes():
     return round(lullablock.getTimer()/60,1)
@@ -103,12 +106,14 @@ def initListener():
     call(["python3.7", "/home/pi/lullablock/rotaryEncoderListener.py"])
 
 if __name__ == '__main__':
-    debugMode = True
+    debugMode = False
+    print ("The __main__ function is running.")
 
     if debugMode:
         print("\u001b[31m Don't forget to start rotaryEncoderListener.py ! \u001b[0m")
     else:
         # Start a new thread for hardware listener
+        print("\u001b[31m Starting the device listener ! \u001b[0m")
         processThread = threading.Thread(target=initListener)
         processThread.start()
 

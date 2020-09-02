@@ -27,13 +27,13 @@ def main():
                     if (event.event.value > 0):
                         try:
                             r = requests.get(f"{apiEndpoint}volume/+{str(event.event.value * volumeIncrement)}")
-                            if (r.text != "True"): print("An error occured setting the volume")
+                            #print("Volume adjusted with/to:",r.text)
                         except:
                             print("Failed to connect to the webserver. Maybe it's not running?")
                     else:
                         try:
                             r = requests.get(f"{apiEndpoint}volume/{str(event.event.value * volumeIncrement)}")
-                            if (r.text != "True"): print("An error occured setting the volume")
+                            #print("Volume adjusted with/to",r.text)
                         except:
                             print("Failed to connect to the webserver. Maybe it's not running?")
 

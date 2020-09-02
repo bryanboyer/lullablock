@@ -1,5 +1,10 @@
 <html>
 <head>
+
+<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+
   <link rel="stylesheet" href='/static/style.css' />
   <script type="text/javascript">
   // a bunch of stuff defined by the server
@@ -25,7 +30,7 @@
   function setBackground(){
     var d = new Date();
     var n = d.getDay();
-    var days = ["monday","tuesday","wedneaday","thursday","friday","saturday","sunday"];
+    var days = ["monday","tuesday","wednesday","thursday","friday","saturday","sunday"];
     document.querySelector("html").classList.add(days[n]);
     window.scrollTo(0,1)
   }

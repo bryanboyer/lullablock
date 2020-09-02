@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve Lullablock
+After=network.target
+
+[Service]
+User=pi
+Group=www-data
+
+WorkingDirectory=/home/pi/lullablock
+ExecStart=/usr/bin/gunicorn3 --workers=1 --bind unix:lullablock.sock -m 007 server:app
+
+[Install]
+WantedBy=multi-user.target

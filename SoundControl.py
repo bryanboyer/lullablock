@@ -8,7 +8,8 @@ import time
 import sys
 from settings import timerDurations, configFolder, audioFolder, blipFile, readyFile, audioFeedbackVolume
 
-pygame.mixer.init()
+mixer = pygame.mixer.init()
+print("Mixer status: ", mixer)
 
 # Makes sure Volume is within appropriate levels
 def clampVolume(n, min_value, max_value):

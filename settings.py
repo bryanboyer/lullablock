@@ -2,8 +2,8 @@
 configFolder = "/home/pi/lullablock/config/"
 audioFolder = "/home/pi/lullablock/static/audio/"
 
-apiEndpoint = "http://localhost:5000/api/"
-apiEndpointForWeb = "http://lullablock.local:5000/api/"
+apiEndpoint = "http://lullablock.local/api/"
+apiEndpointForWeb = "http://lullablock.local:4000/api/"
 
 # timer values in seconds
 timerDurations = [90*60,45*60,10*60,1*60,0]
