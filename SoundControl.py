@@ -7,6 +7,8 @@ from threading import Timer
 import time
 import sys
 from settings import timerDurations, configFolder, audioFolder, blipFile, readyFile, audioFeedbackVolume
+import glob
+from tinytag import TinyTag
 
 mixer = pygame.mixer.init()
 print("Mixer status: ", mixer)
@@ -66,16 +68,33 @@ class SoundControl:
         else:
             print("writeVolume requires a file")
 
-
     def getTracks(self):
-        with open(os.path.join(configFolder, "tracks.json")) as f:
-            file = json.load(f)
-            return file['tracks']
+        # because glob is not case-insensitive!
+        projectFiles = glob.glob(audioFolder + '*.[mM][pP]3') + glob.glob(audioFolder + '*.[wW][aA][vV]')
+
+        tracks = []
+        for file in projectFiles:
+            audiofile = TinyTag.get(file)
+            if (audiofile.title is None):
+                title = os.path.splitext(file)[0].split("/")[-1].capitalize()
+            else:
+                title = audiofile.title
+            tracks.append({"filename":file.split("/")[-1],"title":title})
+
+        return tracks
 
     def getTrack(self):
         with open(os.path.join(configFolder, "track.json")) as f:
             track = json.load(f)
             return track['filename']
+
+    def getTrackTitle(self):
+        filepath = audioFolder + self.getTrack()
+        audiofile = TinyTag.get(filepath)
+        if (audiofile.title is None):
+            return os.path.splitext(filepath)[0].split("/")[-1].capitalize()
+        else:
+            return audiofile.title
 
     def setTrack(self, new_track):
         with open(os.path.join(configFolder, "track.json"),'r+') as f:
@@ -140,6 +159,7 @@ class SoundControl:
                 self.countdown = FancyTimer(new_timer, self.stopTrack)
                 self.countdown.start()
             else:
+                self.countdown.cancel()
                 self.stopTrack()
 
             return new_timer

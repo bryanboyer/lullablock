@@ -113,6 +113,7 @@ body {
 #durationSnake {
   position: relative;
   display: block;
+  left: 0px;
   bottom: 2em;
   cursor: pointer;
   stroke-linecap: square;

@@ -1,9 +1,8 @@
 <html>
 <head>
-
-<link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/static/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon-16x16.png">
 
   <link rel="stylesheet" href='/static/style.css' />
   <script type="text/javascript">
@@ -16,10 +15,10 @@
   var timerPercentage = timerPercentageOnLoad;
 
   // set up a bunch of variables we will re-use
-  var divisions, margin, reps, w, h, vert_units_per_leg, vert_units_total, horz_units_per_leg, horz_units_total, total_units, line_thickness, v_scale_factor;
+  var divisions, h_margin, v_margin, unitlength, reps, w, h, vert_units_per_leg, vert_units_total, horz_units_per_leg, horz_units_total, total_units, line_thickness, v_scale_factor;
 
   // set these to define the UI
-  divisions = 90;
+  divisions = 80;
   line_thickness = 5;
 
   // set up the basic functionality
@@ -68,10 +67,12 @@
     document.querySelector('#durationSnake').style.width = canvasWidth + "px";
     document.querySelector('#durationSnake').style.height = canvasHeight + "px";
 
-    margin = canvasWidth/divisions;
-    v_scale_factor = Math.floor(window.innerHeight/2/margin)-2;
-    w = margin;
-    h = margin * v_scale_factor;
+    h_margin = 0
+    v_margin = 20
+    unitlength = (canvasWidth-(h_margin*2))/divisions;
+    v_scale_factor = Math.floor(window.innerHeight/2/unitlength);
+    w = unitlength;
+    h = unitlength * v_scale_factor - (v_margin*2);
     reps = divisions-2;
     vert_units_per_leg = v_scale_factor;
     vert_units_total = vert_units_per_leg * (divisions-1);
@@ -81,17 +82,15 @@
     total_units = vert_units_total + horz_units_total;
 
     // draw the snake curve
-    var svgPath = [`M ${margin*(divisions-1)}, ${margin}`]
+    var svgPath = [`M ${h_margin+(unitlength*(divisions-1))}, ${v_margin}`]
 
     for (i=1; i<reps; i+=2){
-      svgPath.push(`L ${margin*(divisions-i)}, ${margin+h}`)
-      svgPath.push(`L ${margin*(divisions-i-1)}, ${margin+h}`)
-      svgPath.push(`L ${margin*(divisions-i-1)}, ${margin}`)
-      svgPath.push(`L ${margin*(divisions-i-2)}, ${margin}`)
+      svgPath.push(`L ${h_margin+unitlength*(divisions-i)}, ${v_margin+h}`)
+      svgPath.push(`L ${h_margin+unitlength*(divisions-i-1)}, ${v_margin+h}`)
+      svgPath.push(`L ${h_margin+unitlength*(divisions-i-1)}, ${v_margin}`)
+      svgPath.push(`L ${h_margin+unitlength*(divisions-i-2)}, ${v_margin}`)
     }
-    // the thickness is added here because we don't know how to setTimer
-    // the stroke-lineCap = square using javascript >:(
-    svgPath.push(`L ${margin}, ${margin+h}`)
+    svgPath.push(`L ${h_margin+unitlength}, ${v_margin+h}`)
 
     var pathEl = document.createElementNS("http://www.w3.org/2000/svg", "path");
     pathEl.setAttribute('d',svgPath.join(" "));
@@ -102,24 +101,24 @@
 
 
     // draw the snake curve bright!
-    svgPath = [`M ${margin*(divisions-1)}, ${margin}`]
+    svgPath = [`M ${h_margin+(unitlength*(divisions-1))}, ${v_margin}`]
     unitsDrawn = 0
     snake = snakeCurve(timerPercentage);
     for (i=1; i<reps; i+=2){
         if (unitsDrawn < snake.units-v_scale_factor) {
-          svgPath.push(`L ${margin*(divisions-i)}, ${margin+h}`)
+          svgPath.push(`L ${h_margin+unitlength*(divisions-i)}, ${v_margin+h}`)
           unitsDrawn += v_scale_factor;
         } else { break; }
         if (unitsDrawn < snake.units-1) {
-          svgPath.push(`L ${margin*(divisions-i-1)}, ${margin+h}`)
+          svgPath.push(`L ${h_margin+unitlength*(divisions-i-1)}, ${v_margin+h}`)
           unitsDrawn += 1;
         } else { break; }
         if (unitsDrawn < snake.units-v_scale_factor) {
-          svgPath.push(`L ${margin*(divisions-i-1)}, ${margin}`)
+          svgPath.push(`L ${h_margin+unitlength*(divisions-i-1)}, ${v_margin}`)
           unitsDrawn += v_scale_factor;
         } else { break; }
         if (unitsDrawn < snake.units-1) {
-          svgPath.push(`L ${margin*(divisions-i-2)}, ${margin}`)
+          svgPath.push(`L ${h_margin+unitlength*(divisions-i-2)}, ${v_margin}`)
           unitsDrawn += 1;
         } else { break; }
     }
@@ -138,9 +137,9 @@
       e.innerHTML = parseInt(e.innerHTML)
       e.style.left = coords.x - e.offsetWidth/2  + "px";
     });
-    document.querySelector('#timer').style.left = margin-line_thickness/2 + "px";
-    document.querySelector('#track').style.left = margin-line_thickness/2 + "px";
-    document.querySelector('#branding').style.right = margin-line_thickness/2 + "px";
+    document.querySelector('#timer').style.left = h_margin + w - line_thickness/2 + "px";
+    document.querySelector('#track').style.left = h_margin + w - line_thickness/2 + "px";
+    document.querySelector('#branding').style.right = h_margin + w - line_thickness/2 + "px";
 
     // draw the dot!
     pathEl = document.createElementNS("http://www.w3.org/2000/svg", "circle");
@@ -157,35 +156,33 @@
     var l_units = 1 + v_scale_factor;
     var l_increments = Math.floor((percentage * total_units) / l_units);
     // set coords based on what we know
-    var x = l_increments * margin;
-    var y = margin;
+    var x = h_margin + unitlength + (l_increments * unitlength);
+    var y = v_margin;
 
     var even = (l_increments % 2 == 0) ? true : false;
     var remaining_units = (percentage * total_units) - (l_increments * l_units)
 
     if (remaining_units >= v_scale_factor) {
-      // we're on horz
       var remaining_units_fine = remaining_units - v_scale_factor
-      x += remaining_units_fine * margin
+      x += remaining_units_fine * unitlength
       if (even) {
-        y += margin * v_scale_factor
+        // we're on horz
+        y += h;
       } else {
-        //nothing
+        y += 0;
       }
     } else {
-      // we're on vert
       if (even) {
-        // console.log("going down from top")
+        // we vert
         var remaining_units_fine = remaining_units / v_scale_factor;
-        y += remaining_units_fine * margin * v_scale_factor;
+        y += h * remaining_units_fine;
       } else {
-        // console.log("going up from bottom")
         var remaining_units_fine = remaining_units / v_scale_factor;
-        y += h - (remaining_units_fine * margin * v_scale_factor);
+        y += h-(h * remaining_units_fine);
       }
     }
 
-    x = canvasWidth - margin - x;
+    x = canvasWidth - x;
     var units = (Math.min(1,percentage) * total_units)
     return {x: x, y: y, units: units}
   }
@@ -323,7 +320,7 @@
 
 <div id="tracks" class="hidden">
   {% for track in tracks %}
-  <p class="largetext"><a href="/tracks/play/{{track.filename}}">{{track.display_name}}</a></p>
+  <p class="largetext"><a href="/tracks/play/{{track.filename}}">{{track.title}}</a></p>
   {% endfor %}
   <!--<p class="largetext closer"><a href="#" onclick="toggleTrackList()">👋</a></p>-->
   <a href="/volume/down" onclick="return toggleTrackList()">

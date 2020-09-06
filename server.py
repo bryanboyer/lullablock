@@ -26,7 +26,7 @@ def index():
         'timer_in_minutes' : timerInMinutes(),
         'time': timeString,
         'tracks': lullablock.getTracks(),
-        'track': lullablock.getTrack(),
+        'track': lullablock.getTrackTitle(),
         'remaining': lullablock.timerRemaining(),
         'timerDurations': lullablock.timerDurations,
         'timerLength': lullablock.getTimer(),
@@ -106,7 +106,7 @@ def initListener():
     call(["python3.7", "/home/pi/lullablock/rotaryEncoderListener.py"])
 
 if __name__ == '__main__':
-    debugMode = False
+    debugMode = True
     print ("The __main__ function is running.")
 
     if debugMode:
