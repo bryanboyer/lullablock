@@ -39,7 +39,7 @@
 
   function redrawTimer() {
     // redraw
-    timerRemaining -= 0.5;
+    timerRemaining = Math.max(0, timerRemaining - 0.5);
     timerPercentage = Math.min(1,(timerDurations[0] - timerRemaining) / timerDurations[0]);
 
     // update the text
@@ -67,7 +67,7 @@
     document.querySelector('#durationSnake').style.width = canvasWidth + "px";
     document.querySelector('#durationSnake').style.height = canvasHeight + "px";
 
-    h_margin = 0
+    h_margin = 10
     v_margin = 20
     unitlength = (canvasWidth-(h_margin*2))/divisions;
     v_scale_factor = Math.floor(window.innerHeight/2/unitlength);
@@ -137,7 +137,8 @@
       e.innerHTML = parseInt(e.innerHTML)
       e.style.left = coords.x - e.offsetWidth/2  + "px";
     });
-    document.querySelector('#timer').style.left = h_margin + w - line_thickness/2 + "px";
+
+    document.querySelector('#timerText').style.left = h_margin + w - line_thickness/2 + "px";
     document.querySelector('#track').style.left = h_margin + w - line_thickness/2 + "px";
     document.querySelector('#branding').style.right = h_margin + w - line_thickness/2 + "px";
 
@@ -275,7 +276,7 @@
   }
 
   function switchTimerText(){
-    var hiders = [...document.querySelectorAll("#timer div")].map(function(e) {
+    var hiders = [...document.querySelectorAll("#timerText div")].map(function(e) {
       e.classList.toggle("hidden");
     });
   }
@@ -305,7 +306,7 @@
 </div>
 
 <div id="bottom">
-  <div id="timer" onClick="switchTimerText()">
+  <div id="timerText" onClick="switchTimerText()">
     <div id="timerEnding" class="largetext">Ending</div>
     <div id="timerRemaining" class="largetext hidden">Remaining</div>
   </div>

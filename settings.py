@@ -12,5 +12,5 @@ timerDurations = [90*60,45*60,1*60,0]
 volumeIncrement = 1
 audioFeedbackVolume = 50
 
-blipFile = "/home/pi/lullablock/static/audio/blip.mp3"
-readyFile = "/home/pi/lullablock/static/audio/blip.mp3"
+blipFile = "/home/pi/lullablock/static/system_audio/blip.mp3"
+readyFile = "/home/pi/lullablock/static/system_audio/blip.mp3"

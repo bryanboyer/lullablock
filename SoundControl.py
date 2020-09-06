@@ -129,7 +129,9 @@ class SoundControl:
         pygame.mixer.music.stop()
         # Cannot use pygame.mixer.music.fadeout(5000) to fadeout because
         # it is blocking. So you will need to write a custom fadeout function
-        if self.countdown != False: self.countdown.cancel()
+        if self.countdown != False:
+            self.countdown.cancel()
+            self.countdown = False
         self.writeTimer(0)
         self.blip()
 
@@ -159,7 +161,6 @@ class SoundControl:
                 self.countdown = FancyTimer(new_timer, self.stopTrack)
                 self.countdown.start()
             else:
-                self.countdown.cancel()
                 self.stopTrack()
 
             return new_timer

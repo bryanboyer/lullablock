@@ -106,7 +106,7 @@ def initListener():
     call(["python3.7", "/home/pi/lullablock/rotaryEncoderListener.py"])
 
 if __name__ == '__main__':
-    debugMode = True
+    debugMode = False
     print ("The __main__ function is running.")
 
     if debugMode:

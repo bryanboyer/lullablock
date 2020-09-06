@@ -92,6 +92,13 @@ body {
   bottom: 0em;
 }
 
+#timerText {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+
 #durationMarkers {
   width: 100vw;
   position: relative;
@@ -111,21 +118,12 @@ body {
 }
 
 #durationSnake {
-  position: relative;
+  /* position: relative; */
   display: block;
   left: 0px;
-  bottom: 2em;
   cursor: pointer;
   stroke-linecap: square;
   stroke-linejoin: round;
-}
-
-#timer {
-  position: relative;
-  display: block;
-  left: 0em;
-  bottom: 2em;
-  cursor: pointer;
 }
 
 #tracks {
