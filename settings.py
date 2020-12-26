@@ -6,11 +6,11 @@ apiEndpoint = "http://lullablock.local/api/"
 apiEndpointForWeb = "http://lullablock.local:4000/api/"
 
 # timer values in seconds
-timerDurations = [90*60,45*60,1*60,0]
+timerDurations = [90*60,45*60,15*60,0]
 
 # volumes must be an int
 volumeIncrement = 1
 audioFeedbackVolume = 50
 
 blipFile = "/home/pi/lullablock/static/system_audio/blip.mp3"
-readyFile = "/home/pi/lullablock/static/system_audio/blip.mp3"
+readyFile = "/home/pi/lullablock/static/system_audio/chop.wav"
