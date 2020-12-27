@@ -30,7 +30,7 @@ Assemble Speaker Bonnet and attach to RPI Zero. Then wire the following together
 Build a case. This package includes files for 3d printing, which can then be assembled by following these directions:
 1. Base: screw the RPI to the base using M2.5 screws and nuts.
 2. Body: attach rotary encoder to the top of the body using the nut and washer that it comes with. Attach speakers to the sides using M2.5 screws and nuts.
-3. Attach all wires between the rotary encoder and the RPI.
+3. Attach all wires between the rotary encoder and the RPI, as well as between the speakers and the speaker bonnet
 4. Connect power cable to RPI.
 5. Glue [6-32 nylon hex nuts](https://www.mcmaster.com/catalog/126/3382) into the receptacles on the bottom of the Body.
 6. Assemble body and base! Use [6-32 Nylon Thumb Screws, 1/4" Long](https://www.mcmaster.com/catalog/126/3265), to secure it closed.
