@@ -1,12 +1,12 @@
-# Lullablock
+# 🤫🔊 Lullablock
 
 A pink noise maker baby Fred, with physical interface and simple web app.
 
-# Build Instructions
+# 🔧 Build Instructions
 
 Directions below may have gaps. If so, oops! Good luck.
 
-## Hardware BOM
+## 🛒 Hardware BOM
 Lullablock is built on top of a Raspberry Pi Zero WH.
 
 - [Raspberry Pi Zero WH (Zero W with Headers)](https://www.adafruit.com/product/3708)
@@ -16,7 +16,7 @@ Lullablock is built on top of a Raspberry Pi Zero WH.
 - Power supply
 - Terminal blocks and/or wire as needed
 
-## Hardware setup
+## 🧰 Hardware setup
 Assemble Speaker Bonnet and attach to RPI Zero. Then wire the following together using [jumpers](https://www.adafruit.com/product/1953?gclid=CjwKCAiA25v_BRBNEiwAZb4-ZRbKXj26y8MHqaMjv3Fv1vKvwB_-EpQndhkhp318n3Iuip4fMkSVdhoChYwQAvD_BwE) or soldered connections. The Speaker Bonnet includes a ptototyping area, so you will be connecting to that with the following:
 - ROTARY ENCODER CLK -> GPIO Pin 12
 - ROTARY ENCODER DT -> GPIO Pin 13
@@ -32,7 +32,7 @@ Build a case. This package includes files for 3d printing, which can then be ass
 5. Glue [6-32 nylon hex nuts](https://www.mcmaster.com/catalog/126/3382) into the receptacles on the bottom of the Body.
 6. Assemble body and base! Use [6-32 Nylon Thumb Screws, 1/4" Long](https://www.mcmaster.com/catalog/126/3265), to secure it closed.
 
-## Software setup, install the following:
+## 👾 Software setup, install the following:
 - [Raspbian Buster Lite](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-12-04/2020-12-02-raspios-buster-armhf-lite.zip)
 - Device tree to capture input from GPIO pins [as seen here](https://blog.ploetzli.ch/2018/ky-040-rotary-encoder-linux-raspberry-pi/).
 - [I2S DAC per Adafruit](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi/raspberry-pi-usage)
@@ -40,9 +40,9 @@ Build a case. This package includes files for 3d printing, which can then be ass
 - [Pygame](https://www.pygame.org/) provides audio control
 - [Flask](https://flask.palletsprojects.com/) provides the web app framework
 - [NGINX](https://www.nginx.com/) provides the webserver
-- [Gunicorn3](https://gunicorn.org/) 
+- [Gunicorn3](https://gunicorn.org/)  
 
-## Edit the Device Tree
+## 🌳 Edit the Device Tree
 Add the following to `/boot/config.txt`:
 ```
 # enable rotary encoder
@@ -52,7 +52,7 @@ dtoverlay=hifiberry-dac
 dtoverlay=i2s-mmap
 ```
 
-## Set up system services
+## ⚡️ Set up system services
 Copy `rotarylistener.service.example` to `/etc/systemd/system/rotarylistener.service`. From there you can:
 - Start with `sudo systemctl start rotarylistener.service`
 - Stop with `sudo systemctl stop rotarylistener.service`
@@ -68,20 +68,20 @@ Set up the worker by copying `lullablock.service.example` to `/etc/systemd/syste
 
 -----------------------------
 
-# How to use Lullablock
+# 👉 How to use Lullablock
 
 All Lullablock does is play an audio file on loop until a timer runs out. Physical and digital interfaces are provided to change the timer duration and volume. Setting a new audio track will require connecting via the app/web interface.
 
-## Physical Interface
+## 🎚 Physical Interface
 
 Lullablock has a set of timer durations, by default 90, 45, 15, and 0 minutes. Pressing the big dial will advance through these timers. For instance, if Lullablock is off, pressing the dial will turn on the sound and begin counting down to 90 minutes. At the end of the timer it will shut off.
 
 Turning the dial will decrease or increase the volume based on the direction of rotation. Technically, this happens by sending API calls for each increment of rotation so you will find that there's a small delay between spinning the dial and hearing the change. Sorry, Lullablock is not perfect!
 
-## Digital Interface
+## 📱 Digital Interface
 
 Find your device on the network and load that in a browser, such as the one on your phone. For instance, my Lullablock uses the [hostname](https://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/) lullablock.local and can be found at http://lullablock.local. Once the page loads you will have the ability to turn volume up and down by tapping the - and + icons. The |‾|\_|‾|\_|‾|\_| graphic is a representation of the countdown to silence. Click it to start the timer.
 
-## Customizing Lullablock
+## 🎶 Customizing Lullablock
 
 To change the audio that plays on loop, upload new audio files to `~/lullablock/static/audio`. The files must be WAV or MP3 format. In the app you can change the track by clicking on the trackname in the upper left corner of the screen.
