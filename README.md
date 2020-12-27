@@ -34,16 +34,15 @@ Build a case. This package includes files for 3d printing, which can then be ass
 
 ## 👾 Software setup, install the following:
 - [Raspbian Buster Lite](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-12-04/2020-12-02-raspios-buster-armhf-lite.zip)
-- Device tree to capture input from GPIO pins [as seen here](https://blog.ploetzli.ch/2018/ky-040-rotary-encoder-linux-raspberry-pi/).
-- [I2S DAC per Adafruit](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi/raspberry-pi-usage)
 - Python 3.7
+- [I2S DAC per Adafruit](https://learn.adafruit.com/adafruit-speaker-bonnet-for-raspberry-pi/raspberry-pi-usage)
 - [Pygame](https://www.pygame.org/) provides audio control
 - [Flask](https://flask.palletsprojects.com/) provides the web app framework
 - [NGINX](https://www.nginx.com/) provides the webserver
 - [Gunicorn3](https://gunicorn.org/)  
 
 ## 🌳 Edit the Device Tree
-Add the following to `/boot/config.txt`:
+Add the following to `/boot/config.txt` based on [these instructions](https://blog.ploetzli.ch/2018/ky-040-rotary-encoder-linux-raspberry-pi/):
 ```
 # enable rotary encoder
 dtoverlay=rotary-encoder,pin_a=12,pin_b=13,relative_axis=1
