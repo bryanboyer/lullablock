@@ -1,6 +1,6 @@
 # Lullablock
 
-A pink noise maker baby Fred with physical interface and simple web app.
+A pink noise maker baby Fred, with physical interface and simple web app.
 
 # Build Instructions
 
