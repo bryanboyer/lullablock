@@ -80,7 +80,7 @@ Turning the dial will decrease or increase the volume based on the direction of 
 
 ## Digital Interface
 
-Find your device on the network and load that in a browser, such as the one on your phone. For instance, my Lullablock uses the [hostname](https://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/) lullablock.local and can be found at http://lullablock.local. Once the page loads you will have the ability to turn volume up and down by tapping the - and + icons. The |\_|‾|\_|‾|\_|‾|\_| graphic is a representation of the countdown to silence. Click it to start the timer.
+Find your device on the network and load that in a browser, such as the one on your phone. For instance, my Lullablock uses the [hostname](https://www.howtogeek.com/167195/how-to-change-your-raspberry-pi-or-other-linux-devices-hostname/) lullablock.local and can be found at http://lullablock.local. Once the page loads you will have the ability to turn volume up and down by tapping the - and + icons. The |‾|\_|‾|\_|‾|\_| graphic is a representation of the countdown to silence. Click it to start the timer.
 
 ## Customizing Lullablock
 
