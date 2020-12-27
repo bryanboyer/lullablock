@@ -1,6 +1,6 @@
 # 🤫🔊 Lullablock
 
-A pink noise maker baby Fred, with physical interface and simple web app.
+Pink noise machine for baby Fred and other humans, with physical interface and simple web app.
 
 ![alt text](https://github.com/bryanboyer/lullablock/blob/master/3dprint/lullablock_build.jpg?raw=true)
 
