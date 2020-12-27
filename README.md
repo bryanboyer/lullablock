@@ -34,6 +34,7 @@ Build a case. This package includes files for 3d printing, which can then be ass
 4. Connect power cable to RPI.
 5. Glue [6-32 nylon hex nuts](https://www.mcmaster.com/catalog/126/3382) into the receptacles on the bottom of the Body.
 6. Assemble body and base! Use [6-32 Nylon Thumb Screws, 1/4" Long](https://www.mcmaster.com/catalog/126/3265), to secure it closed.
+7. Infill: rotary knobs have slight variarions, so depending on which one you use you may need to devise your own infill piece that connects the 3d printed dial cover (knob) to the metal stem of the rotary encoder. The infill piece fits over the metal stem, which then slots into the hole on the bottom of the dial. Friction should hold everything in place but you can glue it as well if you like.
 
 ## 👾 Software setup, install the following:
 - [Raspbian Buster Lite](https://downloads.raspberrypi.org/raspios_lite_armhf/images/raspios_lite_armhf-2020-12-04/2020-12-02-raspios-buster-armhf-lite.zip)
