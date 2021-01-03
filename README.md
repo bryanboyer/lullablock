@@ -1,9 +1,10 @@
 # 🤫🔊 Lullablock
 
-Pink noise machine for baby Fred and other humans, with physical interface and simple web app.
+Pink noise machine for baby Fred and other humans, with physical interface and simple web app. Plays an audio file on loop until a timer runs out and that's all it does.
 
 ![alt text](https://github.com/bryanboyer/lullablock/blob/master/3dprint/lullablock_build.jpg?raw=true)
 
+Package includes 3dprint for the case and code to run everything on a Raspberry Pi Zero W. This could (should?) have been done on an Arduino, but Fred can't tell the difference.
 
 # 🔧 Build Instructions
 
@@ -73,7 +74,7 @@ Set up the worker by copying `lullablock.service.example` to `/etc/systemd/syste
 
 # 👉 How to use Lullablock
 
-All Lullablock does is play an audio file on loop until a timer runs out. Physical and digital interfaces are provided to change the timer duration and volume. Setting a new audio track will require connecting via the app/web interface.
+Lullablock plays an audio file on loop until a timer runs out. Physical and digital interfaces are provided to change the timer duration and volume. Setting a new audio track will require connecting via the app/web interface.
 
 ## 🎚 Physical Interface
 
