@@ -1,10 +1,10 @@
 # 🤫🔊 Lullablock
 
-Pink noise machine for baby Fred and other humans, with physical interface and simple web app. Plays an audio file on loop until a timer runs out and that's all it does.
+### Pink noise machine for baby Fred and other humans
+
+Plays an audio file on loop until a timer runs out and that's all it does. Package includes 3dprint for the case and code to run everything on a Raspberry Pi Zero W. Controls are via a single large dial/button or via web app. This could (should?) have been done on an Arduino, but Fred can't tell the difference. Shhhhh.
 
 ![alt text](https://github.com/bryanboyer/lullablock/blob/master/3dprint/lullablock_build.jpg?raw=true)
-
-Package includes 3dprint for the case and code to run everything on a Raspberry Pi Zero W. This could (should?) have been done on an Arduino, but Fred can't tell the difference.
 
 # 🔧 Build Instructions
 
@@ -19,6 +19,9 @@ Lullablock is built on top of a Raspberry Pi Zero WH.
 - [ky040 Rotary Encoder, from Cylewet](https://www.amazon.com/Cylewet-Encoder-15%C3%9716-5-Arduino-CYT1062/dp/B06XQTHDRR)
 - Power supply
 - Terminal blocks and/or wire as needed
+- Case using [supplied 3D print files](https://github.com/bryanboyer/lullablock/tree/master/3dprint) or your own design
+- Handful of nylon M2.5 screws and hex nuts
+- Handful of nylon 6-32 thumbscrews and hex nuts
 
 ## 🧰 Hardware setup
 Assemble Speaker Bonnet and attach to RPI Zero. Then wire the following together using [jumpers](https://www.adafruit.com/product/1953?gclid=CjwKCAiA25v_BRBNEiwAZb4-ZRbKXj26y8MHqaMjv3Fv1vKvwB_-EpQndhkhp318n3Iuip4fMkSVdhoChYwQAvD_BwE) or soldered connections. The Speaker Bonnet includes a ptototyping area, so you will be connecting to that with the following:
