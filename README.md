@@ -73,6 +73,9 @@ Enable NGINX by copying `lullablock.service.example` to `/etc/nginx/sites-availa
 Set up the worker by copying `lullablock.service.example` to `/etc/systemd/system/lullablock.service`
 - Start with `sudo systemctl start lullablock`
 
+## 🔐 Security Notice
+Fair warning: no effort has been made to secure this device, so make sure your RPI has a good password. Lullablock does not need to connect to the outside world for anything, so you can also wall it off from the open internet without impeding functionality.
+
 -----------------------------
 
 # 👉 How to use Lullablock
@@ -81,9 +84,9 @@ Lullablock plays an audio file on loop until a timer runs out. Physical and digi
 
 ## 🎚 Physical Interface
 
-Lullablock has a set of timer durations, by default 90, 45, 15, and 0 minutes. Pressing the big dial will advance through these timers. For instance, if Lullablock is off, pressing the dial will turn on the sound and begin counting down to 90 minutes. At the end of the timer it will shut off.
+Lullablock has a set of timer durations, by default 90, 45, 15, and 0 minutes (these can be changed in `settings.py`). Pressing the big dial will advance through these timers. For instance, if Lullablock is off, pressing the dial will turn on the sound and begin counting down to 90 minutes. At the end of the timer it will shut off. Tap a second time and the timer will be reduced to 45 minutes, again and it will be 15 miniutes, one more time and Lullablock will tiurn off.
 
-Turning the dial will decrease or increase the volume based on the direction of rotation. Technically, this happens by sending API calls for each increment of rotation so you will find that there's a small delay between spinning the dial and hearing the change. Sorry, Lullablock is not perfect!
+Turning the dial will decrease or increase the volume based on the direction of rotation. Technically, this happens by sending API calls for each increment of rotation so you will find that there's a small delay between spinning the dial and hearing the change. This is a bad way to implement the dial controls but... I couldn't figure out a better way to do it and maintain state. Ooops.
 
 ## 📱 Digital Interface
 
