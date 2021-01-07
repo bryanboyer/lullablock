@@ -3,7 +3,7 @@ Description=Lullablock Device Listener
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u hello-device.py
+ExecStart=/usr/bin/python3 -u rotaryEncoderListener.py
 WorkingDirectory=/home/pi/lullablock
 StandardOutput=inherit
 StandardError=inherit

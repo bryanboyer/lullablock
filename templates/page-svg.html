@@ -136,6 +136,9 @@
     var markers = [...document.querySelectorAll('#durationMarkers div')].map(function(e) {
       var coords = snakeCurve((timerDurations[0] - (parseInt(e.innerHTML)*60)) / timerDurations[0]);
       e.innerHTML = parseInt(e.innerHTML)
+      e.onclick = function(){
+        timerBop( parseInt(e.innerHTML)*60 )
+      };
       e.style.left = coords.x - e.offsetWidth/2  + "px";
     });
 
@@ -215,8 +218,13 @@
     redrawTimer()
   }
 
-  function timerBop(){
-    query = "api/timer"
+  function timerBop(value){
+    if (value === undefined) {
+      query = `api/timer/bop`
+    } else {
+      query = `api/timer/set/${value}`
+    }
+
     var xhr = new XMLHttpRequest();
 
     xhr.onreadystatechange = function () {

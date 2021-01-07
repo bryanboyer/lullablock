@@ -140,14 +140,18 @@ class SoundControl:
             timer = json.load(f)
             return timer['duration']
 
-    # does not take argument because we merely bop through the available timer settings
-    def setTimer(self):
+    # set a new timer or bop through the available timer settings
+    def setTimer(self, input_time:int=-1):
         with open(os.path.join(configFolder, "timer.json"),'r+') as f:
             read_timer = json.load(f)
+            print("input time:",input_time)
 
-            c = closest(self.timerDurations,read_timer['duration'])
-            c = self.timerDurations.index(c)+1
-            new_timer = self.timerDurations[c] if c < len(self.timerDurations) else self.timerDurations[0]
+            if (int(input_time) > -1):
+                new_timer = int(input_time)
+            else:
+                c = closest(self.timerDurations,read_timer['duration'])
+                c = self.timerDurations.index(c)+1
+                new_timer = self.timerDurations[c] if c < len(self.timerDurations) else self.timerDurations[0]
 
             print("Timer was {0} and is now {1}.".format(read_timer['duration'],new_timer))
             read_timer['duration'] = new_timer

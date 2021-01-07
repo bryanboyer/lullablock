@@ -27,20 +27,18 @@ def main():
                     if (event.event.value > 0):
                         try:
                             r = requests.get(f"{apiEndpoint}volume/+{str(event.event.value * volumeIncrement)}")
-                            if (r.text != "True"): print("An error occured setting the volume")
                         except:
                             print("Failed to connect to the webserver. Maybe it's not running?")
                     else:
                         try:
                             r = requests.get(f"{apiEndpoint}volume/{str(event.event.value * volumeIncrement)}")
-                            if (r.text != "True"): print("An error occured setting the volume")
                         except:
                             print("Failed to connect to the webserver. Maybe it's not running?")
 
                 elif isinstance(event, evdev.events.KeyEvent):
                     if event.keycode == "KEY_ENTER" and event.keystate == event.key_up:
                         try:
-                            r = requests.get(f"{apiEndpoint}timer")
+                            r = requests.get(f"{apiEndpoint}timer/bop")
                             if (int(r.text) < 0): print("An error occured setting the volume")
                         except:
                             print("Failed to connect to the webserver. Maybe it's not running?")

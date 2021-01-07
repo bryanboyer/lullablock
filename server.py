@@ -41,10 +41,16 @@ def timerBop():
     t = lullablock.setTimer()
     return redirect(url_for('index'))
 
-@app.route('/api/timer')
+@app.route('/api/timer/bop')
 def api_timerBop():
     msg = False
     msg = lullablock.setTimer()
+    return f"{msg}"
+
+@app.route('/api/timer/set/<time>')
+def api_timerSetTime(time):
+    msg = False
+    msg = lullablock.setTimer(time)
     return f"{msg}"
 
 @app.route('/start')
