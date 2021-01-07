@@ -91,4 +91,4 @@ Find your device on the network and load that in a browser, such as the one on y
 
 ## 🎶 Customizing Lullablock
 
-To change the audio that plays on loop, upload new audio files to `static/audio`. The files must be WAV or MP3 format. In the app you can change the track by clicking on the trackname in the upper left corner of the screen.
+To change the audio that plays on loop, upload new audio files to `static/audio`. The files must be WAV or MP3 format. In the app you can change the track by clicking on the trackname in the upper left corner of the screen and then clicking on the track you would like to play. For instance, you might edit together your own loop of [cafe chatter from the BBC](https://sound-effects.bbcrewind.co.uk/search?q=cafe) or crickets or something. 🦗
