@@ -24,17 +24,17 @@ Lullablock is built on top of a Raspberry Pi Zero WH.
 - Handful of nylon 6-32 thumbscrews and hex nuts
 
 ## 🧰 Hardware setup
-Assemble Speaker Bonnet and attach to RPI Zero. Then wire the following together using [jumpers](https://www.adafruit.com/product/1953?gclid=CjwKCAiA25v_BRBNEiwAZb4-ZRbKXj26y8MHqaMjv3Fv1vKvwB_-EpQndhkhp318n3Iuip4fMkSVdhoChYwQAvD_BwE) or soldered connections. The Speaker Bonnet includes a ptototyping area, so you will be connecting to that with the following:
-- ROTARY ENCODER CLK -> GPIO Pin 12
-- ROTARY ENCODER DT -> GPIO Pin 13
-- ROTARY ENCODER SW -> GPIO Pin 16
-- ROTARY ENCODER Plus Sign -> 5V 
-- ROTARY ENCODER GND -> Ground
+Start by assembling the Speaker Bonnet and attaching it to your RPI Zero. you will also need to build a case, or use the 3d printing files provided in this package to print one.
 
-Build a case. This package includes files for 3d printing, which can then be assembled by following these directions:
+Then you're ready to:
 1. Base: screw the RPI to the base using M2.5 screws and nuts.
 2. Body: attach rotary encoder to the top of the body using the nut and washer that it comes with. Attach speakers to the sides using M2.5 screws and nuts.
-3. Attach all wires between the rotary encoder and the RPI, as well as between the speakers and the speaker bonnet
+3. Attach all wires between the rotary encoder and the RPI, as well as between the speakers and the speaker bonnet. I used [jumpers](https://www.adafruit.com/product/1953?gclid=CjwKCAiA25v_BRBNEiwAZb4-ZRbKXj26y8MHqaMjv3Fv1vKvwB_-EpQndhkhp318n3Iuip4fMkSVdhoChYwQAvD_BwE) and soldered terminals but you can also solder wires directly. The Speaker Bonnet includes a prototyping area, so you will be connecting to that with the following:
+  - ROTARY ENCODER CLK -> GPIO Pin 12
+  - ROTARY ENCODER DT -> GPIO Pin 13
+  - ROTARY ENCODER SW -> GPIO Pin 16
+  - ROTARY ENCODER Plus Sign -> 5V 
+  - ROTARY ENCODER GND -> Ground
 4. Connect power cable to RPI.
 5. Glue [6-32 nylon hex nuts](https://www.mcmaster.com/catalog/126/3382) into the receptacles on the bottom of the Body.
 6. Assemble body and base! Use [6-32 Nylon Thumb Screws, 1/4" Long](https://www.mcmaster.com/catalog/126/3265), to secure it closed.
